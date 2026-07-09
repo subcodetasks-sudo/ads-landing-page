@@ -1,5 +1,299 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "brand": "SubCodeCo",
+    "metadata": {
+      "title": "SubCodeCo | Precision Engineering for Your Vision",
+      "description": "SubCodeCo architects bespoke software solutions for enterprises that need scalable, secure, and modern digital products.",
+      "keywords": "custom software development, enterprise software, product engineering, web applications, mobile applications, Saudi Arabia"
+    },
+    "nav": {
+      "services": "Services",
+      "work": "Portfolio",
+      "pricing": "Pricing",
+      "testimonials": "Success Stories",
+      "contact": "Contact"
+    },
+    "hero": {
+      "badge": "Custom Software Development",
+      "title": "Precision Engineering for Your Vision",
+      "description": "We architect bespoke software solutions that drive operational efficiency and digital transformation. Scalable, secure, and built for modern enterprise needs.",
+      "primaryCta": "Get Started",
+      "secondaryCta": "View Portfolio"
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "description": "A disciplined approach to software development, ensuring quality at every phase.",
+      "items": [
+        {
+          "title": "Agile Process",
+          "description": "Iterative development cycles ensure continuous delivery, rapid feedback loops, and alignment with your evolving business goals."
+        },
+        {
+          "title": "Scalable Architecture",
+          "description": "Cloud-native infrastructure designed to grow with your user base, maintaining high performance and robust security protocols."
+        },
+        {
+          "title": "Expert Support",
+          "description": "Dedicated engineering teams provide ongoing maintenance, optimization, and strategic technical consulting post-launch."
+        }
+      ]
+    },
+    "work": {
+      "title": "Our Work",
+      "description": "Delivering scalable software solutions across industries.",
+      "cta": "View More Projects",
+      "items": [
+        {
+          "title": "FinTech Platform",
+          "description": "A secure, high-throughput transaction processing engine for a leading regional bank."
+        },
+        {
+          "title": "Healthcare CRM",
+          "description": "HIPAA-compliant patient engagement system streamlining administrative workflows."
+        },
+        {
+          "title": "Logistics Dashboard",
+          "description": "Real-time supply chain visibility tool with predictive analytics capabilities."
+        }
+      ]
+    },
+    "plans": {
+      "title": "Transparent Engineering Tiers",
+      "description": "Engagement models tailored to project complexity and required velocity.",
+      "items": [
+        {
+          "name": "MVP Development",
+          "description": "Rapid prototyping to validate core concepts.",
+          "price": "Custom",
+          "priceSuffix": "/ project",
+          "cta": "Request Quote",
+          "features": [
+            "Core Feature Development",
+            "Basic UI/UX Design",
+            "Standard Quality Assurance"
+          ]
+        },
+        {
+          "name": "Full-Cycle Build",
+          "description": "End-to-end development for robust applications.",
+          "price": "Custom",
+          "priceSuffix": "/ sprint",
+          "badge": "Most Popular",
+          "cta": "Request Quote",
+          "features": [
+            "Advanced Architecture Design",
+            "Premium UI/UX Integration",
+            "Automated Testing Pipelines",
+            "CI/CD Setup"
+          ]
+        },
+        {
+          "name": "Enterprise Scale",
+          "description": "Dedicated teams for complex ecosystems.",
+          "price": "Retainer",
+          "priceSuffix": "/ monthly",
+          "cta": "Contact Sales",
+          "features": [
+            "Dedicated Engineering Pod",
+            "Legacy System Modernization",
+            "24/7 SLA Support"
+          ]
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Client Success Stories",
+      "description": "Hear from organizations that have transformed with our software solutions.",
+      "items": [
+        {
+          "quote": "SubCodeCo did not just build software; they built a resilient foundation for our next stage of growth.",
+          "name": "Omar Al-Harbi",
+          "role": "Chief Operations Officer, Nuralink Systems"
+        },
+        {
+          "quote": "The scalable architecture they designed for us reduced operational friction and gave our team confidence to expand faster.",
+          "name": "Lina Al-Salem",
+          "role": "Product Director, MedAxis Group"
+        },
+        {
+          "quote": "Exceptional support post-launch. Their team acts like an extension of our business, not just an external vendor.",
+          "name": "Yousef Al-Qahtani",
+          "role": "Managing Partner, RouteBridge Logistics"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Ready to Start Your Project?",
+      "description": "Reach out to discuss your software engineering needs with our experts.",
+      "form": {
+        "nameLabel": "Name",
+        "namePlaceholder": "John Doe",
+        "emailLabel": "Email",
+        "emailPlaceholder": "john@example.com",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "+966 5X XXX XXXX",
+        "serviceLabel": "Service Type",
+        "servicePlaceholder": "Select a service...",
+        "serviceOptions": [
+          "MVP Development",
+          "Full-Cycle Build",
+          "Enterprise Scale"
+        ],
+        "messageLabel": "Message",
+        "messagePlaceholder": "Tell us about your project...",
+        "submitLabel": "Submit Request"
+      }
+    },
+    "finalCta": {
+      "title": "Build Your Next Digital Product With Confidence",
+      "description": "Partner with a team focused on robust engineering, measurable business outcomes, and long-term technical reliability.",
+      "primaryCta": "Start Your Project",
+      "secondaryCta": "Review Services"
+    },
+    "footer": {
+      "description": "© 2024 SubCodeCo. Professional technical solutions for modern enterprise.",
+      "links": [
+        "Privacy Policy",
+        "Terms of Service",
+        "Cookie Policy",
+        "Contact Us"
+      ]
+    }
+  },
+  "Common": {
+    "contactUs": "Contact Us",
+    "consultation": "Request a Free Consultation",
+    "whatsapp": "Contact via WhatsApp",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "name": "Full Name",
+    "message": "Project Details / Message",
+    "projectType": "Requested Service Type",
+    "submit": "Submit Request",
+    "submitting": "Submitting...",
+    "successMsg": "Your request has been sent successfully! One of our experts will contact you soon.",
+    "errorMsg": "An error occurred while sending. Please try again.",
+    "portfolio": "Our Portfolio",
+    "testimonials": "Client Reviews",
+    "pricing": "Packages & Pricing",
+    "contact": "Contact Us",
+    "whyChooseUs": "Why Choose Us?",
+    "copyright": "All Rights Reserved © Subcode 2026",
+    "trustpilot": "Excellent reviews on global review platforms",
+    "backToHome": "Back to Home",
+    "selectService": "Select Service",
+    "software": "Software Development",
+    "marketing": "Digital Marketing"
+  },
+  "SoftwareLanding": {
+    "heroTitle": "Transform Your Idea Into a Custom Software or App with Subcode",
+    "heroSubtitle": "We design and develop custom websites, mobile applications, and management systems using the latest technologies to grow your business securely.",
+    "heroCta": "Start Your Project Now",
+    "whyTitle": "Why Choose Subcode for Your Software Development?",
+    "whySubtitle": "We do not sell templates. We craft unique, custom software solutions designed specifically to fit your business size and vision.",
+    "advantage1Title": "100% Custom Development",
+    "advantage1Desc": "We build your system from scratch to match your workflow and requirements without limitations.",
+    "advantage2Title": "Full Engineering Team",
+    "advantage2Desc": "A team of software engineers, UI/UX designers, and project managers working together to deliver top quality.",
+    "advantage3Title": "High Speed & Advanced Security",
+    "advantage3Desc": "We rely on modern cloud infrastructure that ensures maximum data protection and fast performance.",
+    "advantage4Title": "Continuous Support & Maintenance",
+    "advantage4Desc": "Dedicated post-launch support for continuous updates, security patches, and zero-downtime operations.",
+    "portfolioTitle": "Featured Projects We Built With Pride",
+    "portfolioSubtitle": "Explore some of the applications and platforms we have engineered for our clients in Saudi Arabia and the region.",
+    "priceTitle": "Flexible Packages to Fit Your Scale",
+    "priceSubtitle": "Choose the right package for your budget and project requirements, or request a custom quote.",
+    "pack1Name": "Corporate Website",
+    "pack1Desc": "Perfect for businesses seeking a professional digital presence.",
+    "pack1Price": "3,500 SAR",
+    "pack1Features": [
+      "Responsive design optimized for mobile devices",
+      "Easy-to-use content management system (CMS)",
+      "Integration with social media & analytics",
+      "Free SSL security certificate",
+      "3 months of technical support"
+    ],
+    "pack2Name": "Mobile App Development",
+    "pack2Desc": "Fully functional native or hybrid iOS and Android apps with a custom backend admin panel.",
+    "pack2Price": "12,000 SAR",
+    "pack2Features": [
+      "Custom, modern UI/UX design",
+      "High performance native or hybrid apps",
+      "Admin panel to manage users and content",
+      "App publishing on App Store and Google Play Store",
+      "6 months of technical support and updates"
+    ],
+    "pack3Name": "Custom Management Systems (ERP/CRM)",
+    "pack3Desc": "Design and development of custom management systems to run your operations.",
+    "pack3Price": "Starting from 18,000 SAR",
+    "pack3Features": [
+      "In-depth analysis of your business workflow",
+      "Manage inventory, billing, employees, and clients",
+      "Advanced reporting, analytics, and KPI dashboards",
+      "Integration with payment gateways & SMS APIs",
+      "Annual technical support and maintenance contract"
+    ],
+    "ctaPrice": "Request Custom Quote",
+    "review1Text": "Excellent experience with Subcode team in developing our internal portal. High level of professionalism and outstanding technical support.",
+    "review2Text": "The mobile app they developed for us exceeded our expectations in speed and smooth user experience.",
+    "review1Name": "Mr. Abdulaziz Al-Qahtani",
+    "review2Name": "Ms. Sarah Al-Rowaily",
+    "review1Role": "CEO - Eqdi Co",
+    "review2Role": "Founder - Dorrah Platform"
+  },
+  "MarketingLanding": {
+    "heroTitle": "Double Your Sales & Achieve Real ROI on Your Ad Campaigns",
+    "heroSubtitle": "Comprehensive marketing strategies, professional ad campaign management, and SEO to reach your target audience efficiently.",
+    "heroCta": "Get a Free Marketing Audit",
+    "whyTitle": "How Do We Guarantee Your Marketing Success?",
+    "whySubtitle": "Marketing is not just posting on social media; it's a data-driven strategy designed to generate leads and sales.",
+    "advantage1Title": "Data-Driven Campaign Management",
+    "advantage1Desc": "We analyze user behavior to launch highly targeted paid campaigns on Google, Meta, TikTok, and Snapchat.",
+    "advantage2Title": "Search Engine Optimization (SEO)",
+    "advantage2Desc": "We optimize your website or e-commerce store to rank on the first page of Google and drive free search traffic.",
+    "advantage3Title": "Creative Content Creation",
+    "advantage3Desc": "We write compelling ad copy and design creatives that hook customers and drive immediate purchases.",
+    "advantage4Title": "Transparent ROI Reports",
+    "advantage4Desc": "Regular, clear reports tracking every dollar spent and revenue generated to measure your investment.",
+    "portfolioTitle": "Success Stories & Outstanding Campaigns",
+    "portfolioSubtitle": "See how we helped stores and companies increase brand awareness and double sales.",
+    "priceTitle": "Smart Marketing Plans for Fast Growth",
+    "priceSubtitle": "Packages tailored to cover your social media, ads, and branding requirements with proven results.",
+    "pack1Name": "Starter Package",
+    "pack1Desc": "Perfect for startups and small businesses establishing an online presence.",
+    "pack1Price": "2,000 SAR / month",
+    "pack1Features": [
+      "Manage 2 social media channels",
+      "Create 8 posts and creatives per month",
+      "Setup and launch 1 paid ad campaign",
+      "Monthly performance and engagement report"
+    ],
+    "pack2Name": "Growth Package",
+    "pack2Desc": "Our most popular package for e-commerce shops and growing businesses.",
+    "pack2Price": "4,500 SAR / month",
+    "pack2Features": [
+      "Manage 4 social media channels",
+      "Create 15 posts and creatives with copy",
+      "Full setup & management of Meta and Google Ads",
+      "Basic On-Page SEO optimization",
+      "Bi-weekly reports with competitor analysis"
+    ],
+    "pack3Name": "Enterprise Package",
+    "pack3Desc": "All-in-one digital marketing management for large enterprises and brands.",
+    "pack3Price": "Starting from 8,000 SAR / month",
+    "pack3Features": [
+      "Full management of all channels and direct messages",
+      "Daily content creation, reels, and TikTok short videos",
+      "Unlimited paid ad campaigns across all platforms",
+      "Advanced SEO strategy for high ranking in Google",
+      "Brand reputation management & online PR"
+    ],
+    "ctaPrice": "Get Started Now",
+    "review1Text": "Our sales increased by 150% after handing over the ad campaigns and social media management to the Subcode team.",
+    "review2Text": "Thanks to the SEO strategy they implemented, we are now ranking #1 for cosmetic dental terms in our area.",
+    "review1Name": "Mr. Mohammed Al-Harbi",
+    "review2Name": "Dr. Nada Salman",
+    "review1Role": "Manager - Sea Store",
+    "review2Role": "Founder - Dr. Nada Clinics"
   }
 }
