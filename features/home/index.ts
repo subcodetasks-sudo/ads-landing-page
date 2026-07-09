@@ -1,0 +1,13 @@
+export { ContactSection } from "@/features/home/components/contact-section";
+export { FinalCtaSection } from "@/features/home/components/final-cta-section";
+export { HeroSection } from "@/features/home/components/hero-section";
+export { HomeHeader } from "@/features/home/components/header";
+export { PlansSection } from "@/features/home/components/plans-section";
+export { SiteFooter } from "@/features/home/components/footer";
+export { TestimonialsSection } from "@/features/home/components/testimonials-section";
+export { WhyChooseUsSection } from "@/features/home/components/why-choose-us-section";
+export { WorkSection } from "@/features/home/components/work-section";
+export { HomeStructuredData } from "@/features/home/components/structured-data";
+export { buildHomePageContent } from "@/features/home/server/content";
+export { buildHomeMetadata } from "@/features/home/server/metadata";
+export type { HomePageContent } from "@/features/home/types";

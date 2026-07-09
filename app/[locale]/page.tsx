@@ -1,25 +1,60 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import { PostsList } from "@/features/home/src/components/posts-list";
-import { postsQueryOptions } from "@/features/home/src/queries/posts";
-import { UploadDialog } from "@/features/uploads/components/upload-dialog";
+  buildHomeMetadata,
+  buildHomePageContent,
+  ContactSection,
+  HeroSection,
+  HomeHeader,
+  HomeStructuredData,
+  PlansSection,
+  SiteFooter,
+  TestimonialsSection,
+  WhyChooseUsSection,
+  WorkSection,
+} from "@/features/home";
 
-type Props = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function Home({ params }: Props) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+  return buildHomeMetadata(locale, t);
+}
 
-  const t = await getTranslations("HomePage");
-  const queryClient = new QueryClient();
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+  const content = buildHomePageContent(locale, t);
 
-  await queryClient.prefetchQuery(postsQueryOptions);
-
-  return <h1>{t("title")}</h1>;
+  return (
+    <>
+      <HomeStructuredData
+        locale={locale}
+        brand={content.brand}
+        hero={content.hero}
+        whyChooseUs={content.whyChooseUs}
+        work={content.work}
+        plans={content.plans}
+        contact={content.contact}
+        testimonials={content.testimonials}
+      />
+      <main className="w-full overflow-x-hidden bg-white text-slate-900">
+        <HomeHeader
+          brand={content.brand}
+          homeHref={content.homeHref}
+          nav={content.nav}
+        />
+        <HeroSection hero={content.hero} />
+        <WhyChooseUsSection section={content.whyChooseUs} />
+        <WorkSection section={content.work} />
+        <PlansSection section={content.plans} />
+        <TestimonialsSection section={content.testimonials} />
+        <ContactSection section={content.contact} />
+      </main>
+      <SiteFooter footer={content.footer} />
+    </>
+  );
 }

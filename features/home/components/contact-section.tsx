@@ -1,0 +1,123 @@
+"use client";
+
+import BorderGlow from "@/components/ui/border-glow";
+import type { HomePageContent } from "@/features/home/types";
+
+type ContactSectionProps = {
+  section: HomePageContent["contact"];
+};
+
+export function ContactSection({ section }: ContactSectionProps) {
+  return (
+    <section id="contact" className="bg-slate-50">
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-semibold tracking-tight text-brand-accent sm:text-4xl">{section.title}</h2>
+          <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">{section.description}</p>
+        </div>
+
+        <BorderGlow
+          className="mx-auto mt-12 max-w-3xl border border-slate-200/50 p-8 sm:p-10"
+          edgeSensitivity={30}
+          glowColor="198 75 45"
+          backgroundColor="#ffffff"
+          borderRadius={24}
+          glowRadius={30}
+          glowIntensity={0.8}
+          coneSpread={30}
+          animated={true}
+          colors={["#0ea5e9", "#14688B", "#2dd4bf"]}
+          fillOpacity={0.15}
+        >
+          <form action="/api/contact" method="post" className="space-y-6">
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-semibold text-brand-accent">
+                  {section.form.nameLabel}
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  required
+                  placeholder={section.form.namePlaceholder}
+                  className="h-11 w-full rounded-md border border-slate-200 px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-semibold text-brand-accent">
+                  {section.form.emailLabel}
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder={section.form.emailPlaceholder}
+                  className="h-11 w-full rounded-md border border-slate-200 px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm font-semibold text-brand-accent">
+                  {section.form.phoneLabel}
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  required
+                  placeholder={section.form.phonePlaceholder}
+                  className="h-11 w-full rounded-md border border-slate-200 px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="projectType" className="text-sm font-semibold text-brand-accent">
+                  {section.form.serviceLabel}
+                </label>
+                <select
+                  id="projectType"
+                  name="projectType"
+                  required
+                  defaultValue=""
+                  className="h-11 w-full rounded-md border border-slate-200 bg-white px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue"
+                >
+                  <option value="" disabled>
+                    {section.form.servicePlaceholder}
+                  </option>
+                  {section.form.serviceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="message" className="text-sm font-semibold text-brand-accent">
+                {section.form.messageLabel}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                placeholder={section.form.messagePlaceholder}
+                className="w-full rounded-md border border-slate-200 px-4 py-3 text-base text-slate-900 outline-none transition focus:border-brand-blue"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-brand-blue px-6 text-base font-semibold text-white transition hover:bg-brand-accent"
+            >
+              {section.form.submitLabel}
+            </button>
+          </form>
+        </BorderGlow>
+      </div>
+    </section>
+  );
+}
