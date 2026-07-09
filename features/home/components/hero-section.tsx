@@ -89,12 +89,12 @@ function HeroMarqueeColumn({
   }, [direction, images]);
 
   return (
-    <div className="relative h-[22rem] overflow-hidden rounded-[1.75rem] shadow-[0_20px_60px_rgba(20,104,139,0.14)] lg:h-[32rem]">
+    <div className="relative h-[26rem] overflow-hidden rounded-[1.75rem] shadow-[0_20px_60px_rgba(20,104,139,0.14)] lg:h-[36rem]">
       <div ref={trackRef} className="flex flex-col gap-4 p-3 will-change-transform">
         {[...images, ...images].map((image, index) => (
           <div
             key={`${image}-${index}`}
-            className="relative h-48 overflow-hidden rounded-[1.25rem] border border-sky-100 bg-white shadow-sm lg:h-60"
+            className="relative w-full aspect-[9/16] overflow-hidden rounded-[1.25rem] border border-sky-100 bg-white shadow-sm"
           >
             <Image
               src={image}
@@ -141,7 +141,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
         >
           <div
             dir={direction}
-            className={`max-w-2xl flex-1 lg:max-w-xl xl:max-w-2xl ${isRtl ? "text-right" : "text-left"}`}
+            className={`max-w-2xl flex-1 lg:flex-[0.7] lg:max-w-lg xl:max-w-xl ${isRtl ? "text-right" : "text-left"}`}
           >
             <span className="inline-flex rounded-full border border-sky-100 bg-sky-50 px-4 py-1.5 text-sm font-semibold text-brand-blue">
               {hero.badge}
@@ -177,9 +177,9 @@ export function HeroSection({ hero }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="flex w-full flex-1 flex-col items-center">
+          <div className="flex w-full flex-1 lg:flex-[1.3] flex-col items-center">
             <div
-              className="mx-auto w-full max-w-[34rem] transform-3d lg:max-w-none"
+              className="mx-auto w-full max-w-[42rem] transform-3d lg:max-w-none"
               style={{
                 transform: isRtl
                   ? "perspective(1400px) rotateY(18deg) rotateX(10deg) rotateZ(-5deg)"

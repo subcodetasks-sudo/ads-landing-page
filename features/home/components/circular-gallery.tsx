@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useLocale } from "next-intl";
+import { useDirection } from "@/components/ui/direction";
 
 export type CircularGalleryItem = {
   image: string;
@@ -61,8 +61,7 @@ export default function CircularGallery({
   const animationFrameRef = useRef<number | null>(null);
   const wheelTimeoutRef = useRef<number | null>(null);
   
-  const locale = useLocale();
-  const isRtl = locale === "ar";
+  const direction = useDirection() ?? "ltr";
 
   useEffect(() => {
     if (!fontUrl) {
@@ -110,7 +109,7 @@ export default function CircularGallery({
     });
   }, [normalizedItems.length]);
 
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     if (animationFrameRef.current !== null) return;
 
     const total = normalizedItems.length;
@@ -136,7 +135,54 @@ export default function CircularGallery({
     };
 
     animationFrameRef.current = window.requestAnimationFrame(animate);
-  };
+  }, [normalizedItems.length, scrollEase, updateDOM]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+
+    const onWheel = (event: WheelEvent) => {
+      const isHorizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+      const isShiftVertical = event.shiftKey && Math.abs(event.deltaY) > Math.abs(event.deltaX);
+
+      // Keep vertical wheel for page scrolling; use horizontal (or shift+wheel) for the gallery.
+      if (!isHorizontal && !isShiftVertical) {
+        return;
+      }
+
+      const delta = isHorizontal ? event.deltaX : event.deltaY;
+      if (Math.abs(delta) < 3) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const sensitivity = 0.002 * scrollSpeed;
+      targetIndexRef.current -= delta * sensitivity;
+      startAnimation();
+
+      if (wheelTimeoutRef.current !== null) {
+        window.clearTimeout(wheelTimeoutRef.current);
+      }
+
+      wheelTimeoutRef.current = window.setTimeout(() => {
+        const total = normalizedItems.length;
+        const snappedTarget = Math.round(targetIndexRef.current);
+        targetIndexRef.current = ((snappedTarget % total) + total) % total;
+        activeIndexRef.current = ((activeIndexRef.current % total) + total) % total;
+        startAnimation();
+        wheelTimeoutRef.current = null;
+      }, 150) as unknown as number;
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+    };
+  }, [normalizedItems.length, scrollSpeed, startAnimation]);
 
   // Initialize styling on mount
   useEffect(() => {
@@ -151,32 +197,6 @@ export default function CircularGallery({
       }
     };
   }, [normalizedItems, updateDOM]);
-
-  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    const delta = event.deltaY === 0 ? event.deltaX : event.deltaY;
-    if (Math.abs(delta) < 3) {
-      return;
-    }
-
-    // Scroll speed / sensitivity (RTL scrolls naturally with physical mouse movement direction)
-    const sensitivity = 0.002 * scrollSpeed;
-    targetIndexRef.current += delta * sensitivity;
-
-    startAnimation();
-
-    if (wheelTimeoutRef.current !== null) {
-      window.clearTimeout(wheelTimeoutRef.current);
-    }
-
-    wheelTimeoutRef.current = window.setTimeout(() => {
-      const total = normalizedItems.length;
-      const snappedTarget = Math.round(targetIndexRef.current);
-      targetIndexRef.current = ((snappedTarget % total) + total) % total;
-      activeIndexRef.current = ((activeIndexRef.current % total) + total) % total;
-      startAnimation();
-      wheelTimeoutRef.current = null;
-    }, 150) as unknown as number;
-  };
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     dragStartX.current = event.clientX;
@@ -194,8 +214,7 @@ export default function CircularGallery({
     // md: [--gallery-gap: 28rem] (448px), mobile: [--gallery-gap: 16rem] (256px)
     const gapInPx = window.innerWidth >= 768 ? 448 : 256;
     
-    // Physical drag: moving cursor right increases visual offsets, which means targetIndex decreases.
-    // In RTL, the physical drag direction is the same sincetranslateX behaves physically.
+    // Physical drag: moving the cursor right pulls the carousel left.
     const deltaIndex = -distance / gapInPx;
     
     targetIndexRef.current = dragStartTarget.current + deltaIndex;
@@ -216,18 +235,17 @@ export default function CircularGallery({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const directionMultiplier = isRtl ? -1 : 1;
     const total = normalizedItems.length;
 
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      targetIndexRef.current = ((Math.round(targetIndexRef.current) + 1 * directionMultiplier) % total + total) % total;
+      targetIndexRef.current = ((Math.round(targetIndexRef.current) + 1) % total + total) % total;
       startAnimation();
     }
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      targetIndexRef.current = ((Math.round(targetIndexRef.current) - 1 * directionMultiplier) % total + total) % total;
+      targetIndexRef.current = ((Math.round(targetIndexRef.current) - 1) % total + total) % total;
       startAnimation();
     }
   };
@@ -235,11 +253,11 @@ export default function CircularGallery({
   return (
     <div
       ref={containerRef}
-      className="relative z-0 h-192 w-full overflow-hidden rounded-[2rem] bg-transparent isolation-isolate [--gallery-gap:16rem] [--gallery-translate-y:4.5rem] md:[--gallery-gap:28rem] md:[--gallery-translate-y:5.5rem]"
+      className="relative z-0 mx-auto h-144 w-full max-w-full overflow-hidden rounded-[2rem] bg-transparent isolation-isolate [--gallery-gap:16rem] [--gallery-translate-y:4.5rem] md:h-160 md:[--gallery-gap:28rem] md:[--gallery-translate-y:5.5rem]"
+      dir="ltr"
       role="region"
       aria-label="Project gallery. Use Left and Right Arrow keys to navigate."
       tabIndex={0}
-      onWheel={handleWheel}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -260,7 +278,7 @@ export default function CircularGallery({
                 targetIndexRef.current = index;
                 startAnimation();
               }}
-              className="absolute left-1/2 top-[64%] h-96 w-72 md:h-116 md:w-92 -translate-x-1/2 -translate-y-1/2 cursor-pointer border-0 bg-transparent p-0 text-left"
+              className="absolute top-1/2 left-1/2 h-96 w-72 cursor-pointer border-0 bg-transparent p-0 md:h-116 md:w-92"
               style={{
                 opacity: 0,
               }}
@@ -273,8 +291,8 @@ export default function CircularGallery({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={item.image} alt={item.text} className="h-full w-full object-cover" />
                   <div className="absolute inset-0 bg-linear-to-t from-slate-950/78 via-slate-900/24 to-sky-100/14" />
-                  <div className="absolute inset-x-0 bottom-0 p-6">
-                    <div className="rounded-[1.5rem] border border-white/20 bg-slate-950/45 p-5 shadow-lg backdrop-blur-md">
+                  <div className="absolute inset-x-0 bottom-0 p-6" dir={direction}>
+                    <div className="rounded-[1.5rem] border border-white/20 bg-slate-950/45 p-5 text-start shadow-lg backdrop-blur-md">
                       <h3
                         className="text-2xl font-semibold leading-tight"
                         style={{

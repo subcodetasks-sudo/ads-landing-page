@@ -1,3 +1,5 @@
+"use client";
+
 import CircularGallery from "@/features/home/components/circular-gallery";
 import { SectionHeading } from "@/features/home/components/section-heading";
 import type { HomePageContent } from "@/features/home/types";
@@ -43,7 +45,7 @@ export function WorkSection({ section }: WorkSectionProps) {
         <SectionHeading title={section.title} description={section.description} />
       </div>
 
-      <div className="mt-18 w-full">
+      <div className="mt-18 px-6 lg:px-8">
         <CircularGallery
           items={galleryItems}
           bend={2.5}
