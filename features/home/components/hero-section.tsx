@@ -161,17 +161,17 @@ export function HeroSection({ hero }: HeroSectionProps) {
         >
           <div
             dir={direction}
-            className={`max-w-2xl flex-1 lg:flex-[0.7] lg:max-w-lg xl:max-w-xl order-2 lg:order-1 ${isRtl ? "text-right" : "text-left"}`}
+            className={`flex-1 lg:flex-[0.85] lg:max-w-2xl xl:max-w-3xl order-2 lg:order-1 ${isRtl ? "text-right" : "text-left"}`}
           >
-            <span className="inline-flex rounded-full border border-sky-100 bg-sky-50 px-4 py-1.5 text-sm font-semibold text-brand-blue">
+            <span className="inline-flex whitespace-nowrap rounded-full border border-sky-100 bg-sky-50 px-4 py-1.5 text-sm font-semibold text-brand-blue">
               {hero.badge}
             </span>
 
-            <div className="mt-8 max-w-3xl">
-              <h1 className="text-4xl font-bold tracking-tight text-brand-accent sm:text-5xl lg:text-6xl">
+            <div className="mt-8">
+              <h1 className="max-w-4xl text-balance text-4xl font-bold leading-[1.3] tracking-tight text-brand-accent sm:text-5xl sm:leading-[1.35] lg:text-6xl lg:leading-[1.4]">
                 {hero.title}
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+              <p className="mt-6 max-w-3xl text-pretty text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
                 {hero.description}
               </p>
             </div>

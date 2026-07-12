@@ -45,11 +45,6 @@ export function HomeStructuredData({
           "@type": "Offer",
           name: plan.name,
           description: plan.description,
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            priceCurrency: locale === "ar" ? "SAR" : "USD",
-            price: plan.price,
-          },
           itemOffered: {
             "@type": "Service",
             name: plan.name,

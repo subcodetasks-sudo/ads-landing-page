@@ -36,6 +36,26 @@ export function buildHomePageContent(locale: string, t: Translator): HomePageCon
           title: t("whyChooseUs.items.2.title"),
           description: t("whyChooseUs.items.2.description"),
         },
+        {
+          title: t("whyChooseUs.items.3.title"),
+          description: t("whyChooseUs.items.3.description"),
+        },
+        {
+          title: t("whyChooseUs.items.4.title"),
+          description: t("whyChooseUs.items.4.description"),
+        },
+        {
+          title: t("whyChooseUs.items.5.title"),
+          description: t("whyChooseUs.items.5.description"),
+        },
+        {
+          title: t("whyChooseUs.items.6.title"),
+          description: t("whyChooseUs.items.6.description"),
+        },
+        {
+          title: t("whyChooseUs.items.7.title"),
+          description: t("whyChooseUs.items.7.description"),
+        },
       ],
     },
     work: {
@@ -60,45 +80,29 @@ export function buildHomePageContent(locale: string, t: Translator): HomePageCon
     plans: {
       title: t("plans.title"),
       description: t("plans.description"),
+      includesLabel: t("plans.includesLabel"),
       items: [
         {
           name: t("plans.items.0.name"),
           description: t("plans.items.0.description"),
-          price: t("plans.items.0.price"),
-          priceSuffix: t("plans.items.0.priceSuffix"),
           cta: t("plans.items.0.cta"),
-          features: [
-            t("plans.items.0.features.0"),
-            t("plans.items.0.features.1"),
-            t("plans.items.0.features.2"),
-          ],
+          features: Array.from({ length: 8 }, (_, index) => t(`plans.items.0.features.${index}`)),
         },
         {
           name: t("plans.items.1.name"),
           description: t("plans.items.1.description"),
-          price: t("plans.items.1.price"),
-          priceSuffix: t("plans.items.1.priceSuffix"),
           cta: t("plans.items.1.cta"),
           featured: true,
           badge: t("plans.items.1.badge"),
-          features: [
-            t("plans.items.1.features.0"),
-            t("plans.items.1.features.1"),
-            t("plans.items.1.features.2"),
-            t("plans.items.1.features.3"),
-          ],
+          featuresIntro: t("plans.items.1.featuresIntro"),
+          features: Array.from({ length: 8 }, (_, index) => t(`plans.items.1.features.${index}`)),
         },
         {
           name: t("plans.items.2.name"),
           description: t("plans.items.2.description"),
-          price: t("plans.items.2.price"),
-          priceSuffix: t("plans.items.2.priceSuffix"),
+          note: t("plans.items.2.note"),
           cta: t("plans.items.2.cta"),
-          features: [
-            t("plans.items.2.features.0"),
-            t("plans.items.2.features.1"),
-            t("plans.items.2.features.2"),
-          ],
+          features: Array.from({ length: 9 }, (_, index) => t(`plans.items.2.features.${index}`)),
         },
       ],
     },

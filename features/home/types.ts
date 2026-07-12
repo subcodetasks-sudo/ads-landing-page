@@ -35,11 +35,11 @@ export type Testimonial = {
 export type Plan = {
   name: string;
   description: string;
-  price: string;
-  priceSuffix: string;
   cta: string;
   featured?: boolean;
   badge?: string;
+  note?: string;
+  featuresIntro?: string;
   features: string[];
 };
 
@@ -87,7 +87,7 @@ export type HomePageContent = {
   hero: HeroContent;
   whyChooseUs: SectionIntro & { items: Feature[] };
   work: SectionIntro & { items: Project[]; cta: string };
-  plans: SectionIntro & { items: Plan[] };
+  plans: SectionIntro & { includesLabel: string; items: Plan[] };
   testimonials: SectionIntro & { items: Testimonial[] };
   contact: ContactSection;
   finalCta: FinalCta;

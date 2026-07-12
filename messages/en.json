@@ -14,27 +14,47 @@
       "contact": "Contact"
     },
     "hero": {
-      "badge": "Custom Software Development",
-      "title": "Precision Engineering for Your Vision",
-      "description": "We architect bespoke software solutions that drive operational efficiency and digital transformation. Scalable, secure, and built for modern enterprise needs.",
+      "badge": "Ready for your next software project",
+      "title": "Turn your idea into a successful system",
+      "description": "Whether you're a startup, enterprise, or entrepreneur, we're ready to build custom software solutions tailored to your needs and help you grow.",
       "primaryCta": "Get Started",
       "secondaryCta": "View Portfolio"
     },
     "whyChooseUs": {
-      "title": "Why Choose Us",
-      "description": "A disciplined approach to software development, ensuring quality at every phase.",
+      "title": "Why Choose Us?",
+      "description": "We believe every successful project starts with understanding the client's needs, so we work as a technical partner accompanying you from idea to launch and ongoing development.",
       "items": [
         {
-          "title": "Agile Process",
-          "description": "Iterative development cycles ensure continuous delivery, rapid feedback loops, and alignment with your evolving business goals."
+          "title": "Practical Experience",
+          "description": "We have delivered software solutions across multiple industries, giving us the ability to build systems that fit diverse business needs."
         },
         {
-          "title": "Scalable Architecture",
-          "description": "Cloud-native infrastructure designed to grow with your user base, maintaining high performance and robust security protocols."
+          "title": "Custom Solutions",
+          "description": "We don't rely on ready-made templates; we design and develop systems aligned with your project's goals and workflow."
         },
         {
-          "title": "Expert Support",
-          "description": "Dedicated engineering teams provide ongoing maintenance, optimization, and strategic technical consulting post-launch."
+          "title": "Quality & Performance",
+          "description": "We write clean, scalable code with a focus on performance, security, and maintainability."
+        },
+        {
+          "title": "On-Time Delivery",
+          "description": "We follow a clear implementation plan and defined timeline to ensure the project is delivered on schedule."
+        },
+        {
+          "title": "Modern Technologies",
+          "description": "We use the latest technologies and best practices to build fast, stable, and scalable systems."
+        },
+        {
+          "title": "Ongoing Support & Development",
+          "description": "Our role doesn't end at launch; we provide technical support and updates to ensure continued success."
+        },
+        {
+          "title": "Communication & Transparency",
+          "description": "We provide continuous follow-up and clear reports on implementation stages, with direct communication throughout the project."
+        },
+        {
+          "title": "Long-Term Partner",
+          "description": "Our goal isn't just to deliver one project, but to build a long-term relationship that helps you grow your business and achieve digital growth."
         }
       ]
     },
@@ -58,45 +78,57 @@
       ]
     },
     "plans": {
-      "title": "Transparent Engineering Tiers",
+      "title": "Clear, Flexible Engineering Packages",
       "description": "Engagement models tailored to project complexity and required velocity.",
+      "includesLabel": "Includes:",
       "items": [
         {
-          "name": "MVP Development",
-          "description": "Rapid prototyping to validate core concepts.",
-          "price": "Custom",
-          "priceSuffix": "/ project",
-          "cta": "Request Quote",
+          "name": "Launch Package",
+          "description": "",
+          "cta": "Get Started",
           "features": [
-            "Core Feature Development",
-            "Basic UI/UX Design",
-            "Standard Quality Assurance"
+            "Project requirements analysis",
+            "Basic UI/UX design",
+            "Simple website or system",
+            "Admin dashboard",
+            "Responsive design",
+            "Performance optimization",
+            "System usage training",
+            "1 month technical support"
           ]
         },
         {
-          "name": "Full-Cycle Build",
-          "description": "End-to-end development for robust applications.",
-          "price": "Custom",
-          "priceSuffix": "/ sprint",
+          "name": "Growth Package",
+          "description": "For companies looking to scale",
           "badge": "Most Popular",
-          "cta": "Request Quote",
+          "featuresIntro": "Includes everything in the Launch Package, plus:",
+          "cta": "Request a Quote",
           "features": [
-            "Advanced Architecture Design",
-            "Premium UI/UX Integration",
-            "Automated Testing Pipelines",
-            "CI/CD Setup"
+            "Fully custom system",
+            "Mobile app",
+            "User and permissions management",
+            "Advanced admin dashboard",
+            "Third-party integrations",
+            "Security enhancements",
+            "Reports and analytics",
+            "3 months technical support"
           ]
         },
         {
-          "name": "Enterprise Scale",
-          "description": "Dedicated teams for complex ecosystems.",
-          "price": "Retainer",
-          "priceSuffix": "/ monthly",
-          "cta": "Contact Sales",
+          "name": "Enterprise Package",
+          "description": "Integrated solutions for large organizations",
+          "note": "Starting from: based on project scope",
+          "cta": "Contact Sales Team",
           "features": [
-            "Dedicated Engineering Pod",
-            "Legacy System Modernization",
-            "24/7 SLA Support"
+            "Comprehensive business analysis",
+            "Custom ERP or CRM system",
+            "Web and mobile applications",
+            "Integration with existing systems",
+            "Scalable architecture",
+            "Hosting and server management",
+            "Employee training",
+            "Dedicated project manager",
+            "Ongoing support and maintenance"
           ]
         }
       ]
