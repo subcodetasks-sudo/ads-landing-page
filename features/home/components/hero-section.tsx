@@ -154,7 +154,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
       </div>
       <div className="pointer-events-none absolute inset-0 bg-white/45" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 lg:py-32">
         <div
           dir={direction}
           className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16"
@@ -177,19 +177,19 @@ export function HeroSection({ hero }: HeroSectionProps) {
             </div>
 
             <div
-              className={`mt-10 flex flex-col gap-4 sm:flex-row sm:items-center ${isRtl ? "items-end sm:justify-start" : "items-start sm:justify-start"
+              className={`mt-10 flex gap-4 sm:flex-row sm:items-center ${isRtl ? "items-end sm:justify-start" : "items-start sm:justify-start"
                 }`}
             >
               <Button
                 asChild
-                className="h-12 rounded-full bg-brand-blue px-7 text-base font-semibold text-white hover:bg-brand-accent"
+                className="h-12 flex-1 rounded-full bg-brand-blue px-7 text-base font-semibold text-white hover:bg-brand-accent"
               >
                 <Link href="#contact">{hero.primaryCta}</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="h-12 rounded-full border-slate-200 px-7 text-base font-semibold text-brand-accent hover:bg-slate-50"
+                className="h-12 flex-1 rounded-full border-slate-200 px-7 text-base font-semibold text-brand-accent hover:bg-slate-50"
               >
                 <Link href="#work">{hero.secondaryCta}</Link>
               </Button>
