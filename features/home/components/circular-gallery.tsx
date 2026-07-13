@@ -42,6 +42,28 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function getGalleryGapPx(container: HTMLElement) {
+  const gap = getComputedStyle(container).getPropertyValue("--gallery-gap").trim();
+
+  if (gap.endsWith("rem")) {
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    return parseFloat(gap) * rootFontSize;
+  }
+
+  if (gap.endsWith("px")) {
+    return parseFloat(gap);
+  }
+
+  return window.innerWidth >= 768 ? 448 : 256;
+}
+
+function stopAnimationFrame(animationFrameRef: { current: number | null }) {
+  if (animationFrameRef.current !== null) {
+    window.cancelAnimationFrame(animationFrameRef.current);
+    animationFrameRef.current = null;
+  }
+}
+
 export default function CircularGallery({
   items = FALLBACK_ITEMS,
   textColor = "#ffffff",
@@ -84,17 +106,14 @@ export default function CircularGallery({
 
   const updateDOM = useCallback((activeVal: number) => {
     const total = normalizedItems.length;
+    const maxIndex = Math.max(total - 1, 0);
+    const settledActive = clamp(activeVal, 0, maxIndex);
+
     itemRefs.current.forEach((el, index) => {
       if (!el) return;
 
-      const rawOffset = index - activeVal;
-      const wrappedOffset =
-        rawOffset > total / 2
-          ? rawOffset - total
-          : rawOffset < -total / 2
-          ? rawOffset + total
-          : rawOffset;
-      const clampedOffset = clamp(wrappedOffset, -2, 2);
+      const offset = index - settledActive;
+      const clampedOffset = clamp(offset, -2, 2);
       const absOffset = Math.abs(clampedOffset);
       const rotate = clampedOffset * 8;
       const scale = 1 - absOffset * 0.1;
@@ -113,22 +132,22 @@ export default function CircularGallery({
     if (animationFrameRef.current !== null) return;
 
     const total = normalizedItems.length;
+    const maxIndex = Math.max(total - 1, 0);
     const animate = () => {
       const current = activeIndexRef.current;
-      const target = targetIndexRef.current;
+      const target = clamp(targetIndexRef.current, 0, maxIndex);
+      targetIndexRef.current = target;
 
-      let diff = target - current;
-      // Shortest path circular difference
-      diff = ((diff + total / 2) % total + total) % total - total / 2;
-
+      const diff = target - current;
       const next = current + diff * scrollEase;
 
       if (Math.abs(diff) < 0.001) {
-        activeIndexRef.current = ((target % total) + total) % total;
+        activeIndexRef.current = target;
+        targetIndexRef.current = target;
         updateDOM(activeIndexRef.current);
         animationFrameRef.current = null;
       } else {
-        activeIndexRef.current = (next % total + total) % total;
+        activeIndexRef.current = next;
         updateDOM(activeIndexRef.current);
         animationFrameRef.current = window.requestAnimationFrame(animate);
       }
@@ -160,7 +179,12 @@ export default function CircularGallery({
       event.preventDefault();
 
       const sensitivity = 0.002 * scrollSpeed;
-      targetIndexRef.current -= delta * sensitivity;
+      const maxIndex = Math.max(normalizedItems.length - 1, 0);
+      targetIndexRef.current = clamp(
+        targetIndexRef.current - delta * sensitivity,
+        0,
+        maxIndex,
+      );
       startAnimation();
 
       if (wheelTimeoutRef.current !== null) {
@@ -168,10 +192,8 @@ export default function CircularGallery({
       }
 
       wheelTimeoutRef.current = window.setTimeout(() => {
-        const total = normalizedItems.length;
-        const snappedTarget = Math.round(targetIndexRef.current);
-        targetIndexRef.current = ((snappedTarget % total) + total) % total;
-        activeIndexRef.current = ((activeIndexRef.current % total) + total) % total;
+        const maxIndex = Math.max(normalizedItems.length - 1, 0);
+        targetIndexRef.current = clamp(Math.round(targetIndexRef.current), 0, maxIndex);
         startAnimation();
         wheelTimeoutRef.current = null;
       }, 150) as unknown as number;
@@ -198,26 +220,37 @@ export default function CircularGallery({
     };
   }, [normalizedItems, updateDOM]);
 
+  const goToIndex = useCallback(
+    (index: number) => {
+      const maxIndex = Math.max(normalizedItems.length - 1, 0);
+      targetIndexRef.current = clamp(index, 0, maxIndex);
+      startAnimation();
+    },
+    [normalizedItems.length, startAnimation],
+  );
+
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    stopAnimationFrame(animationFrameRef);
     dragStartX.current = event.clientX;
     dragStartTarget.current = targetIndexRef.current;
     isDragging.current = true;
     event.currentTarget.setPointerCapture(event.pointerId);
-    startAnimation();
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!isDragging.current || dragStartX.current === null) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
     const distance = event.clientX - dragStartX.current;
-    
-    // Map drag distance in pixels to carousel index.
-    // md: [--gallery-gap: 28rem] (448px), mobile: [--gallery-gap: 16rem] (256px)
-    const gapInPx = window.innerWidth >= 768 ? 448 : 256;
-    
-    // Physical drag: moving the cursor right pulls the carousel left.
+    const gapInPx = getGalleryGapPx(container);
+    const maxIndex = Math.max(normalizedItems.length - 1, 0);
     const deltaIndex = -distance / gapInPx;
-    
-    targetIndexRef.current = dragStartTarget.current + deltaIndex;
+
+    targetIndexRef.current = clamp(dragStartTarget.current + deltaIndex, 0, maxIndex);
+    activeIndexRef.current = targetIndexRef.current;
+    updateDOM(activeIndexRef.current);
   };
 
   const handlePointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -226,34 +259,31 @@ export default function CircularGallery({
     dragStartX.current = null;
     event.currentTarget.releasePointerCapture(event.pointerId);
 
-    const total = normalizedItems.length;
-    const snappedTarget = Math.round(targetIndexRef.current);
-    targetIndexRef.current = ((snappedTarget % total) + total) % total;
-    activeIndexRef.current = ((activeIndexRef.current % total) + total) % total;
-
+    const maxIndex = Math.max(normalizedItems.length - 1, 0);
+    targetIndexRef.current = clamp(Math.round(targetIndexRef.current), 0, maxIndex);
     startAnimation();
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const total = normalizedItems.length;
+  const handlePointerCancel = (event: React.PointerEvent<HTMLDivElement>) => {
+    handlePointerUp(event);
+  };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      targetIndexRef.current = ((Math.round(targetIndexRef.current) + 1) % total + total) % total;
-      startAnimation();
+      goToIndex(Math.round(activeIndexRef.current) + 1);
     }
 
     if (event.key === "ArrowLeft") {
       event.preventDefault();
-      targetIndexRef.current = ((Math.round(targetIndexRef.current) - 1) % total + total) % total;
-      startAnimation();
+      goToIndex(Math.round(activeIndexRef.current) - 1);
     }
   };
 
   return (
     <div
       ref={containerRef}
-      className="relative z-0 mx-auto h-144 w-full max-w-full overflow-hidden rounded-[2rem] bg-transparent isolation-isolate [--gallery-gap:16rem] [--gallery-translate-y:4.5rem] md:h-160 md:[--gallery-gap:28rem] md:[--gallery-translate-y:5.5rem]"
+      className="relative z-0 mx-auto h-144 w-full max-w-full touch-pan-y overflow-hidden rounded-[2rem] bg-transparent isolation-isolate [--gallery-gap:min(16rem,78vw)] [--gallery-translate-y:4.5rem] md:h-160 md:[--gallery-gap:28rem] md:[--gallery-translate-y:5.5rem]"
       dir="ltr"
       role="region"
       aria-label="Project gallery. Use Left and Right Arrow keys to navigate."
@@ -261,6 +291,7 @@ export default function CircularGallery({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
       onKeyDown={handleKeyDown}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-linear-to-b from-white/35 to-transparent" />
@@ -275,16 +306,15 @@ export default function CircularGallery({
               key={`${item.text}-${index}`}
               type="button"
               onClick={() => {
-                targetIndexRef.current = index;
-                startAnimation();
+                goToIndex(index);
               }}
-              className="absolute top-1/2 left-1/2 h-96 w-72 cursor-pointer border-0 bg-transparent p-0 md:h-116 md:w-92"
+              className="absolute top-1/2 left-1/2 h-96 w-72 cursor-pointer border-0 bg-transparent p-0 will-change-transform md:h-116 md:w-92"
               style={{
                 opacity: 0,
               }}
             >
               <article
-                className="flex h-full overflow-hidden border border-white/60 bg-white/70 shadow-[0_20px_60px_rgba(14,116,144,0.18)] backdrop-blur-md transition-transform duration-300"
+                className="flex h-full overflow-hidden border border-white/60 bg-white/70 shadow-[0_20px_60px_rgba(14,116,144,0.18)] backdrop-blur-md"
                 style={{ borderRadius: `${borderRadius * 24}rem` }}
               >
                 <div className="relative h-full w-full">

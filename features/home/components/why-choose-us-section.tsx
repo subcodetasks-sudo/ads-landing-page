@@ -41,45 +41,45 @@ export function WhyChooseUsSection({ section }: WhyChooseUsSectionProps) {
 
           <div className="flex flex-1 flex-col items-center">
             <div className="relative h-90 w-full sm:h-105 md:h-120 lg:h-135">
-            <div className="absolute inset-0 mx-auto max-w-[320px] sm:max-w-95 md:max-w-110 lg:max-w-125">
-              <CardSwap
-                ref={cardSwapRef}
-                width="100%"
-                height="100%"
-                cardDistance={45}
-                verticalDistance={45}
-                delay={5000}
-                pauseOnHover={false}
-                skewAmount={0}
-                easing="elastic"
-                direction={direction}
-              >
-                {section.items.map((item, index) => {
-                  const Icon = featureIcons[index % featureIcons.length];
+              <div className="absolute inset-0 mx-auto max-w-[320px] sm:max-w-95 md:max-w-110 lg:max-w-125">
+                <CardSwap
+                  ref={cardSwapRef}
+                  width="100%"
+                  height="100%"
+                  cardDistance={20}
+                  verticalDistance={14}
+                  delay={5000}
+                  pauseOnHover={false}
+                  skewAmount={0}
+                  easing="elastic"
+                  direction={direction}
+                >
+                  {section.items.map((item, index) => {
+                    const Icon = featureIcons[index % featureIcons.length];
 
-                  return (
-                    <SwapCard
-                      key={item.title}
-                      dir={direction}
-                      customClass={`overflow-hidden rounded-[2rem] border border-white/60 bg-white/70 shadow-[0_20px_60px_rgba(14,116,144,0.18)] backdrop-blur-md ${isRtl ? "text-right" : "text-left"}`}
-                    >
-                      <div
+                    return (
+                      <SwapCard
+                        key={item.title}
                         dir={direction}
-                        className={`flex h-full flex-col bg-linear-to-b from-white/75 via-sky-50/50 to-white/40 p-5 ${isRtl ? "items-end text-right" : "items-start text-left"}`}
+                        customClass={`overflow-hidden rounded-[2rem] border border-white/60 bg-white/70 shadow-[0_20px_20px_rgba(14,116,144,0.18)] backdrop-blur-md ${isRtl ? "text-right" : "text-left"}`}
                       >
-                        <div className="flex h-full flex-col rounded-[1.5rem] border border-white/20 bg-slate-950/45 p-6 text-sky-50 shadow-lg backdrop-blur-md">
-                          <div className="flex size-12 items-center justify-center rounded-2xl bg-white/12 text-sky-50">
-                            <Icon className="size-5" />
+                        <div
+                          dir={direction}
+                          className={`flex h-full flex-col bg-linear-to-b from-white/75 via-sky-50/50 to-white/40 p-5 ${isRtl ? "items-end text-right" : "items-start text-left"}`}
+                        >
+                          <div className="flex h-full flex-col rounded-[1.5rem] border border-white/20 bg-slate-950/45 p-6 text-sky-50 shadow-lg backdrop-blur-md">
+                            <div className="flex size-12 items-center justify-center rounded-2xl bg-white/12 text-sky-50">
+                              <Icon className="size-5" />
+                            </div>
+                            <h3 className="mt-6 text-2xl font-semibold text-white">{item.title}</h3>
+                            <p className="mt-4 text-base leading-7 text-sky-50/90">{item.description}</p>
                           </div>
-                          <h3 className="mt-6 text-2xl font-semibold text-white">{item.title}</h3>
-                          <p className="mt-4 text-base leading-7 text-sky-50/90">{item.description}</p>
                         </div>
-                      </div>
-                    </SwapCard>
-                  );
-                })}
-              </CardSwap>
-            </div>
+                      </SwapCard>
+                    );
+                  })}
+                </CardSwap>
+              </div>
             </div>
             <div className={`mt-6 flex w-full max-w-[320px] gap-3 sm:mt-7 sm:max-w-95 md:max-w-110 lg:max-w-125 ${isRtl ? "justify-start sm:justify-start" : "justify-end sm:justify-end"} max-sm:justify-center`}>
               <Button

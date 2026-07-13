@@ -1,6 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import BorderGlow from "@/components/ui/border-glow";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { HomePageContent } from "@/features/home/types";
 
 type ContactSectionProps = {
@@ -8,6 +15,8 @@ type ContactSectionProps = {
 };
 
 export function ContactSection({ section }: ContactSectionProps) {
+  const [selectedService, setSelectedService] = useState<string>("");
+
   return (
     <section id="contact" className="bg-slate-50">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
@@ -77,22 +86,48 @@ export function ContactSection({ section }: ContactSectionProps) {
                 <label htmlFor="projectType" className="text-sm font-semibold text-brand-accent">
                   {section.form.serviceLabel}
                 </label>
-                <select
-                  id="projectType"
+                <input
+                  type="hidden"
                   name="projectType"
-                  required
-                  defaultValue=""
-                  className="h-11 w-full rounded-md border border-slate-200 bg-white px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue"
-                >
-                  <option value="" disabled>
-                    {section.form.servicePlaceholder}
-                  </option>
-                  {section.form.serviceOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  value={selectedService}
+                  required={selectedService === ""}
+                />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      type="button"
+                      className="h-11 w-full rounded-md border border-slate-200 bg-white px-4 text-base text-slate-900 outline-none transition focus:border-brand-blue text-left flex items-center justify-between"
+                    >
+                      <span className={selectedService ? "text-slate-900" : "text-slate-400"}>
+                        {selectedService
+                          ? section.form.serviceOptions.find((opt) => opt.value === selectedService)?.label
+                          : section.form.servicePlaceholder}
+                      </span>
+                      <svg
+                        className="h-4 w-4 opacity-50"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width]" align="start">
+                    {section.form.serviceOptions.map((option) => (
+                      <DropdownMenuItem
+                        key={option.value}
+                        onClick={() => setSelectedService(option.value)}
+                      >
+                        {option.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
 

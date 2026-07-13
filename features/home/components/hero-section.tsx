@@ -65,13 +65,13 @@ function HeroMarqueeColumn({
       animation = element.animate(
         direction === "up"
           ? [
-              { transform: "translate3d(0, 0, 0)" },
-              { transform: isHorizontal ? `translate3d(-${distance}px, 0, 0)` : `translate3d(0, -${distance}px, 0)` },
-            ]
+            { transform: "translate3d(0, 0, 0)" },
+            { transform: isHorizontal ? `translate3d(-${distance}px, 0, 0)` : `translate3d(0, -${distance}px, 0)` },
+          ]
           : [
-              { transform: isHorizontal ? `translate3d(-${distance}px, 0, 0)` : `translate3d(0, -${distance}px, 0)` },
-              { transform: "translate3d(0, 0, 0)" },
-            ],
+            { transform: isHorizontal ? `translate3d(-${distance}px, 0, 0)` : `translate3d(0, -${distance}px, 0)` },
+            { transform: "translate3d(0, 0, 0)" },
+          ],
         {
           duration: direction === "up" ? 26000 : 30000,
           easing: "linear",
@@ -97,12 +97,12 @@ function HeroMarqueeColumn({
   const displayImages = [...images, ...images, ...images, ...images];
 
   return (
-    <div 
+    <div
       dir="ltr"
       className={`relative w-full h-[12.5rem] sm:h-[16rem] md:h-[26rem] overflow-hidden rounded-[1.25rem] md:rounded-[1.75rem] shadow-[0_20px_60px_rgba(20,104,139,0.14)] lg:h-[36rem] ${className}`}
     >
-      <div 
-        ref={trackRef} 
+      <div
+        ref={trackRef}
         dir="ltr"
         className="flex flex-row md:flex-col gap-3 md:gap-4 p-2 md:p-3 will-change-transform w-max md:w-full"
       >
@@ -124,7 +124,7 @@ function HeroMarqueeColumn({
       {/* Vertical gradients (Desktop) */}
       <div className="hidden md:block pointer-events-none absolute inset-x-0 top-0 h-20 bg-linear-to-b from-white via-white/85 to-transparent" />
       <div className="hidden md:block pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-white via-white/85 to-transparent" />
-      
+
       {/* Horizontal gradients (Mobile) */}
       <div className="block md:hidden pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-white via-white/85 to-transparent" />
       <div className="block md:hidden pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-white via-white/85 to-transparent" />
@@ -137,7 +137,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
   const isRtl = direction === "rtl";
 
   return (
-    <section className="relative flex min-h-dvh items-center overflow-hidden bg-white">
+    <section className="relative flex min-h-dvh pt-14 md:pt-0 items-center overflow-hidden bg-white">
       <div className="absolute inset-0">
         <DotField
           dotRadius={2}
@@ -198,11 +198,10 @@ export function HeroSection({ hero }: HeroSectionProps) {
 
           <div className="flex w-full flex-1 lg:flex-[1.3] flex-col items-center order-1 lg:order-2">
             <div
-              className={`mx-auto w-full max-w-[42rem] lg:max-w-none ${
-                isRtl
-                  ? "md:[transform:perspective(1400px)_rotateY(18deg)_rotateX(10deg)_rotateZ(-5deg)] md:[transform-origin:center_left]"
-                  : "md:[transform:perspective(1400px)_rotateY(-18deg)_rotateX(10deg)_rotateZ(5deg)] md:[transform-origin:center_right]"
-              }`}
+              className={`mx-auto w-full max-w-[42rem] lg:max-w-none ${isRtl
+                ? "md:[transform:perspective(1400px)_rotateY(18deg)_rotateX(10deg)_rotateZ(-5deg)] md:[transform-origin:center_left]"
+                : "md:[transform:perspective(1400px)_rotateY(-18deg)_rotateX(10deg)_rotateZ(5deg)] md:[transform-origin:center_right]"
+                }`}
             >
               <div className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-4">
                 {marqueeColumns.map((images, index) => (

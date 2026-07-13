@@ -45,7 +45,7 @@ export function WorkSection({ section }: WorkSectionProps) {
         <SectionHeading title={section.title} description={section.description} />
       </div>
 
-      <div className="mt-18 px-6 lg:px-8">
+      <div className="mt-18 overflow-x-clip px-0 md:px-6 lg:px-8">
         <CircularGallery
           items={galleryItems}
           bend={2.5}
